@@ -1,0 +1,11 @@
+textarea {
+	padding: 15px;
+	border: none;
+	outline: none !important;
+	width: 100%;
+	height: 400px;
+	overflow-x: hidden;
+	font-size: 15px;
+	resize: none;
+	background: #f7f7f7;
+}
