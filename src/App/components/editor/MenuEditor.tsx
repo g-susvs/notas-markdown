@@ -2,13 +2,11 @@ import { Box, Breadcrumbs, Button, Link, Typography } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import { useUiStore } from '../../hooks/useUiStore';
 
-interface props {
-	viewText: boolean;
-	setviewText: (b: boolean) => void;
-}
+export const MenuEditor = () => {
+	const { openEditor, onToggleEditor } = useUiStore();
 
-export const MenuEditor = ({ viewText, setviewText }: props) => {
 	return (
 		<Box
 			sx={{
@@ -21,11 +19,11 @@ export const MenuEditor = ({ viewText, setviewText }: props) => {
 			<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
 				<Button
 					variant="outlined"
-					onClick={() => setviewText(!viewText)}
-					startIcon={viewText ? <EditIcon /> : <VisibilityIcon />}
+					onClick={onToggleEditor}
+					startIcon={!openEditor ? <EditIcon /> : <VisibilityIcon />}
 					sx={{ width: '100px' }}
 				>
-					{viewText ? 'Editor' : 'Vista'}
+					{!openEditor ? 'Editor' : 'Vista'}
 				</Button>
 				<Breadcrumbs aria-label="breadcrumb">
 					<Link underline="hover" color="inherit" href="/">

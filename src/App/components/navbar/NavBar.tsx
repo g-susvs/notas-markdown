@@ -2,13 +2,15 @@ import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { TitleNote } from './TitleNote';
 import { Options } from './Options';
+import { useUiStore } from '../../hooks/useUiStore';
 
 interface props {
 	drawerWidth: number;
-	setOpenDrawer: (open: boolean) => void;
 }
 
-export const NavBar = ({ drawerWidth, setOpenDrawer }: props) => {
+export const NavBar = ({ drawerWidth }: props) => {
+	const { onOpenDrawer } = useUiStore();
+
 	return (
 		<AppBar
 			position="fixed"
@@ -22,8 +24,8 @@ export const NavBar = ({ drawerWidth, setOpenDrawer }: props) => {
 		>
 			<Toolbar>
 				<IconButton
-					onClick={() => setOpenDrawer(true)}
-					sx={{ display: { xs: 'block', sm: 'none', color: 'secondary.main' } }}
+					onClick={onOpenDrawer}
+					sx={{ display: { xs: 'block', sm: 'none', color: 'secondary.main', height: '40px' } }}
 				>
 					<MenuIcon />
 				</IconButton>

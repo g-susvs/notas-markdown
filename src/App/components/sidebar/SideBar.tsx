@@ -9,17 +9,17 @@ import {
 	Box,
 } from '@mui/material';
 
-// import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { NotesList } from './NotesList';
+import { useUiStore } from '../../hooks/useUiStore';
 
 interface props {
-	openDrawer: boolean;
-	setOpenDrawer: (open: boolean) => void;
 	drawerWidth: number;
 }
 
-export const SideBar = ({ openDrawer, drawerWidth, setOpenDrawer }: props) => {
+export const SideBar = ({ drawerWidth }: props) => {
+	const { openDrawer, onCloseDrawer } = useUiStore();
+
 	return (
 		<Drawer
 			sx={{
@@ -53,8 +53,8 @@ export const SideBar = ({ openDrawer, drawerWidth, setOpenDrawer }: props) => {
 
 					<Grid item>
 						<IconButton
-							onClick={() => setOpenDrawer(false)}
-							sx={{ display: { xs: 'block', sm: 'none' } }}
+							onClick={onCloseDrawer}
+							sx={{ display: { xs: 'block', sm: 'none', height: '40px' } }}
 						>
 							<ArrowBackIosIcon />
 						</IconButton>

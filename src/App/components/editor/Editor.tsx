@@ -3,9 +3,11 @@ import { ChangeEvent, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 // import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { MenuEditor } from './MenuEditor';
+import { useUiStore } from '../../hooks/useUiStore';
 
 export const Editor = () => {
-	const [viewText, setviewText] = useState(false);
+	const { openEditor } = useUiStore();
+
 	const [markdownInput, setMarkdownInput] = useState<string>('# Hola mundo');
 
 	const handleChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,8 +21,8 @@ export const Editor = () => {
 			component="main"
 			sx={{ bgcolor: 'background.default', p: 3, marginTop: 6 }}
 		>
-			<MenuEditor viewText={viewText} setviewText={setviewText} />
-			{!viewText ? (
+			<MenuEditor />
+			{openEditor ? (
 				<textarea
 					autoFocus
 					className="textarea"
@@ -30,9 +32,9 @@ export const Editor = () => {
 			) : (
 				<ReactMarkdown
 					children={markdownInput}
-					// components={{
-					//     code: MarkComponent,
-					// }}
+				// components={{
+				//     code: MarkComponent,
+				// }}
 				/>
 			)}
 		</Box>
