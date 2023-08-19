@@ -1,10 +1,10 @@
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
 	toggleOpenDrawer,
 	toggleEditor,
 	setOpenDrawer,
 	setCloseDrawer,
-} from '../../store/ui/uiSlice';
+} from '../store/ui/uiSlice';
 
 export const useUiStore = () => {
 	const dispatch = useAppDispatch();

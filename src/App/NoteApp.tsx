@@ -1,8 +1,6 @@
 import { Box } from '@mui/material';
 import { Editor, NavBar, SideBar } from './components';
 
-import './index.css';
-
 const drawerWidth = 250;
 
 export function NoteApp() {

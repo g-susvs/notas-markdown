@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 // import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { MenuEditor } from './MenuEditor';
-import { useUiStore } from '../../hooks/useUiStore';
+import { useUiStore } from '../../../hooks/useUiStore';
 
 export const Editor = () => {
 	const { openEditor } = useUiStore();
@@ -32,9 +32,9 @@ export const Editor = () => {
 			) : (
 				<ReactMarkdown
 					children={markdownInput}
-				// components={{
-				//     code: MarkComponent,
-				// }}
+					// components={{
+					//     code: MarkComponent,
+					// }}
 				/>
 			)}
 		</Box>

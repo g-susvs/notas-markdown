@@ -11,7 +11,7 @@ import {
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { NotesList } from './NotesList';
-import { useUiStore } from '../../hooks/useUiStore';
+import { useUiStore } from '../../../hooks/useUiStore';
 
 interface props {
 	drawerWidth: number;

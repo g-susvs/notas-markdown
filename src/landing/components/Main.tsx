@@ -24,7 +24,12 @@ export const Main = () => {
 			</Grid>
 			<Grid item xs={12} sm={6}>
 				<Box sx={{}}>
-					<img src="/notes.png" style={{ width: '100%', height: '100%' }} />
+					<img
+						alt="img-app"
+						className="img-landing"
+						src="/notes.png"
+						style={{ width: '100%', height: '100%' }}
+					/>
 				</Box>
 			</Grid>
 		</Grid>

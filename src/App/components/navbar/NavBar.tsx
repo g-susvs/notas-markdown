@@ -2,7 +2,7 @@ import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { TitleNote } from './TitleNote';
 import { Options } from './Options';
-import { useUiStore } from '../../hooks/useUiStore';
+import { useUiStore } from '../../../hooks/useUiStore';
 
 interface props {
 	drawerWidth: number;
@@ -25,7 +25,14 @@ export const NavBar = ({ drawerWidth }: props) => {
 			<Toolbar>
 				<IconButton
 					onClick={onOpenDrawer}
-					sx={{ display: { xs: 'block', sm: 'none', color: 'secondary.main', height: '40px' } }}
+					sx={{
+						display: {
+							xs: 'block',
+							sm: 'none',
+							color: 'secondary.main',
+							height: '40px',
+						},
+					}}
 				>
 					<MenuIcon />
 				</IconButton>

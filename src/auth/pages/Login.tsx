@@ -1,31 +1,55 @@
+import { FormEvent } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
+import { useForm } from '../../hooks/useForm';
+import { useAuthStore } from '../../hooks/useAuthStore';
+import { User } from '../../store/auth';
 
 export const Login = () => {
+	const { startLogin } = useAuthStore();
+	const { email, password, onInputChange } = useForm({
+		email: '',
+		password: '',
+	});
+
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		const customUser: User = {
+			uid: '123abc',
+			name: 'Jesús Valencia',
+		};
+		startLogin(customUser);
+	};
+
 	return (
 		<AuthLayout title={'Iniciar sesión'}>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<Grid container gap={2} marginTop={4}>
 					<Grid item xs={12}>
 						<TextField
-							id="outlined-basic"
 							label="Correo"
-							fullWidth
 							variant="outlined"
+							fullWidth
+							name="email"
+							value={email}
+							onChange={onInputChange}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<TextField
-							id="outlined-basic"
 							label="Contraseña"
 							fullWidth
-							type="password"
 							variant="outlined"
+							type="password"
+							name="password"
+							value={password}
+							onChange={onInputChange}
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Button variant="contained" fullWidth>
+						<Button type="submit" variant="contained" fullWidth>
 							Iniciar sesión
 						</Button>
 					</Grid>

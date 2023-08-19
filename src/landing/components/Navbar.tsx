@@ -7,6 +7,7 @@ import {
 	Toolbar,
 	Box,
 	AppBar,
+	Link,
 } from '@mui/material';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
@@ -22,24 +23,34 @@ export const NavBar = () => {
 						display: 'flex',
 					}}
 				>
-					<EditNoteIcon sx={{ display: 'flex', mr: 1 }} />
-					<Typography
-						// variant="h4"
-						noWrap
-						component="a"
-						// href="/"
+					<Link
+						component={RouterLink}
+						to="/"
 						sx={{
-							mr: 2,
-							fontFamily: 'monospace',
-							fontWeight: 800,
-							fontSize: '1.6rem',
-							letterSpacing: '.1rem',
-							color: 'inherit',
+							display: 'flex',
+							alignItems: 'center',
 							textDecoration: 'none',
 						}}
 					>
-						NOTAS-MARKDOWN
-					</Typography>
+						<EditNoteIcon sx={{ display: 'flex', mr: 1 }} />
+						<Typography
+							// variant="h4"
+							noWrap
+							component="a"
+							// href="/"
+							sx={{
+								mr: 2,
+								fontFamily: 'monospace',
+								fontWeight: 800,
+								fontSize: '1.6rem',
+								letterSpacing: '.1rem',
+								color: 'inherit',
+								textDecoration: 'none',
+							}}
+						>
+							NOTAS-MARKDOWN
+						</Typography>
+					</Link>
 
 					<Box sx={{ flexGrow: 1, display: 'flex' }}></Box>
 					<Box>

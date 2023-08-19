@@ -2,7 +2,7 @@ import { Box, Breadcrumbs, Button, Link, Typography } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
-import { useUiStore } from '../../hooks/useUiStore';
+import { useUiStore } from '../../../hooks/useUiStore';
 
 export const MenuEditor = () => {
 	const { openEditor, onToggleEditor } = useUiStore();

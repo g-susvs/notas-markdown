@@ -5,10 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Box, Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuthStore } from '../../../hooks/useAuthStore';
 
 const ITEM_HEIGHT = 48;
 
 export const Options = () => {
+	const { startLogout } = useAuthStore();
+
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -46,7 +49,7 @@ export const Options = () => {
 				}}
 			>
 				<MenuItem
-					onClick={handleClose}
+					onClick={startLogout}
 					sx={{
 						':hover': {
 							backgroundColor: 'error.light',
