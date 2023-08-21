@@ -10,8 +10,11 @@ import {
 } from '@mui/material';
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 import { NotesList } from './NotesList';
-import { useUiStore } from '../../../hooks/useUiStore';
+import { useAuthStore, useUiStore } from '../../../hooks/';
+import { pink } from '@mui/material/colors';
 
 interface props {
 	drawerWidth: number;
@@ -19,6 +22,7 @@ interface props {
 
 export const SideBar = ({ drawerWidth }: props) => {
 	const { openDrawer, onCloseDrawer } = useUiStore();
+	const { user } = useAuthStore();
 
 	return (
 		<Drawer
@@ -42,11 +46,18 @@ export const SideBar = ({ drawerWidth }: props) => {
 					<Grid item>
 						<div>
 							<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-								<Avatar
-									alt="Remy Sharp"
-									src="https://sm.ign.com/ign_pk/cover/a/avatar-gen/avatar-generations_rpge.jpg"
-								/>
-								<Typography noWrap>Jesús Valencia</Typography>
+								{user.image ? (
+									<Avatar
+										alt="Remy Sharp"
+										src="https://sm.ign.com/ign_pk/cover/a/avatar-gen/avatar-generations_rpge.jpg"
+									/>
+								) : (
+									<Avatar sx={{ bgcolor: pink[500] }}>
+										<AccountCircleIcon />
+									</Avatar>
+								)}
+
+								<Typography noWrap>{user.name}</Typography>
 							</Box>
 						</div>
 					</Grid>

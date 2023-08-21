@@ -1,14 +1,20 @@
 import { FormEvent } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import {
+	Alert,
+	Button,
+	Grid,
+	Link,
+	TextField,
+	Typography,
+} from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks/useForm';
 import { useAuthStore } from '../../hooks/useAuthStore';
-import { User } from '../../store/auth';
 
 export const Login = () => {
-	const { startLogin } = useAuthStore();
-	const { email, password, onInputChange } = useForm({
+	const { startLogin, errorMessage } = useAuthStore();
+	const { formState, email, password, onInputChange } = useForm({
 		email: '',
 		password: '',
 	});
@@ -16,11 +22,8 @@ export const Login = () => {
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		const customUser: User = {
-			uid: '123abc',
-			name: 'Jesús Valencia',
-		};
-		startLogin(customUser);
+		if (password.length < 6) return;
+		startLogin(formState);
 	};
 
 	return (
@@ -30,6 +33,7 @@ export const Login = () => {
 					<Grid item xs={12}>
 						<TextField
 							label="Correo"
+							type="email"
 							variant="outlined"
 							fullWidth
 							name="email"
@@ -49,6 +53,12 @@ export const Login = () => {
 						/>
 					</Grid>
 					<Grid item xs={12}>
+						<Alert
+							severity="error"
+							sx={{ marginBottom: 2, display: errorMessage ? '' : 'none' }}
+						>
+							{errorMessage}
+						</Alert>
 						<Button type="submit" variant="contained" fullWidth>
 							Iniciar sesión
 						</Button>

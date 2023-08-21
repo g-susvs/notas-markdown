@@ -24,8 +24,7 @@ export const NavBar = () => {
 					}}
 				>
 					<Link
-						component={RouterLink}
-						to="/"
+						href="/"
 						sx={{
 							display: 'flex',
 							alignItems: 'center',
@@ -36,7 +35,6 @@ export const NavBar = () => {
 						<Typography
 							// variant="h4"
 							noWrap
-							component="a"
 							// href="/"
 							sx={{
 								mr: 2,
