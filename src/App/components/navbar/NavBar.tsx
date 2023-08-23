@@ -1,15 +1,13 @@
-import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Skeleton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { TitleNote } from './TitleNote';
 import { Options } from './Options';
 import { useUiStore } from '../../../hooks/useUiStore';
+import { useNoteStore } from '../../hooks';
 
-interface props {
-	drawerWidth: number;
-}
-
-export const NavBar = ({ drawerWidth }: props) => {
-	const { onOpenDrawer } = useUiStore();
+export const NavBar = () => {
+	const { status } = useNoteStore();
+	const { drawerWidth, onOpenDrawer } = useUiStore();
 
 	return (
 		<AppBar
@@ -36,7 +34,17 @@ export const NavBar = ({ drawerWidth }: props) => {
 				>
 					<MenuIcon />
 				</IconButton>
-				<TitleNote />
+
+				{status === 'active' && <TitleNote />}
+				{status === 'loading' && (
+					<Skeleton
+						animation="wave"
+						variant="rounded"
+						width={200}
+						height={20}
+					/>
+				)}
+				{status === 'nothing-selected' && null}
 				<Box sx={{ flexGrow: 1, display: 'flex' }}></Box>
 				<Options />
 			</Toolbar>

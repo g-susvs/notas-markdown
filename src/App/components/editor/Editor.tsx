@@ -1,20 +1,26 @@
 import { Box } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 // import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { MenuEditor } from './MenuEditor';
 import { useUiStore } from '../../../hooks/useUiStore';
+import { useNoteStore } from '../../hooks';
 
 export const Editor = () => {
+	const { content } = useNoteStore();
 	const { openEditor } = useUiStore();
 
-	const [markdownInput, setMarkdownInput] = useState<string>('# Hola mundo');
+	const [markdownInput, setMarkdownInput] = useState<string>('');
 
 	const handleChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
 		const { value } = target;
 
 		setMarkdownInput(value);
 	};
+
+	useEffect(() => {
+		setMarkdownInput(content);
+	}, [content]);
 
 	return (
 		<Box

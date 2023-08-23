@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Box, Button, Menu, TextField } from '@mui/material';
+import { useNoteStore } from '../../hooks';
 
 export const TitleNote = () => {
+	const { title } = useNoteStore();
+
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -14,7 +17,7 @@ export const TitleNote = () => {
 	return (
 		<>
 			<Button
-				startIcon={'😁'}
+				startIcon={'📄'}
 				sx={{
 					color: 'black',
 					textTransform: 'capitalize',
@@ -27,7 +30,7 @@ export const TitleNote = () => {
 				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
 			>
-				Platzi
+				{title}
 			</Button>
 			<Menu
 				id="basic-menu"

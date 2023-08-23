@@ -1,30 +1,30 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import {
 	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	Collapse,
-	List,
+	// ListItemIcon,
+	// ListItemText,
+	// Collapse,
+	// List,
 	Box,
 	Typography,
 } from '@mui/material';
-import { ExpandMore, StarBorder } from '@mui/icons-material';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+// import { ExpandMore, StarBorder } from '@mui/icons-material';
+// import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useNavigate } from 'react-router-dom';
+import { Note } from '../../../api';
 
 interface props {
-	iconItem: string;
-	title: string;
+	note: Note;
 }
 
-export const NoteItem = ({ iconItem, title }: props) => {
-	const [openListItem, setOpenListItem] = useState(false);
+export const NoteItem = ({ note }: props) => {
+	// const [openListItem, setOpenListItem] = useState(false);
 
 	const navigate = useNavigate();
 
 	const handleClickListItem = () => {
-		setOpenListItem(!openListItem);
-		navigate(`?note=${title}`);
+		// setOpenListItem(!openListItem);
+		navigate(`?note=${note.id}`);
 	};
 	return (
 		<>
@@ -36,14 +36,18 @@ export const NoteItem = ({ iconItem, title }: props) => {
 					},
 				}}
 			>
-				{openListItem ? <ExpandMore /> : <KeyboardArrowRightIcon />}
+				{/* {openListItem ? <ExpandMore /> : <KeyboardArrowRightIcon />} */}
 				<Box sx={{ display: 'flex', gap: 1, marginLeft: 1 }}>
-					<Typography>{iconItem}</Typography>
-					<Typography>{title}</Typography>
+					<Typography>📄</Typography>
+					<Typography>
+						{note.title.length > 18
+							? note.title.slice(0, 18) + '...'
+							: note.title}
+					</Typography>
 				</Box>
 			</ListItemButton>
 
-			<Collapse in={openListItem} timeout="auto" unmountOnExit>
+			{/* <Collapse in={openListItem} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
 					<ListItemButton sx={{ pl: 4 }}>
 						<ListItemIcon>
@@ -52,7 +56,7 @@ export const NoteItem = ({ iconItem, title }: props) => {
 						<ListItemText primary="Starred" />
 					</ListItemButton>
 				</List>
-			</Collapse>
+			</Collapse> */}
 		</>
 	);
 };

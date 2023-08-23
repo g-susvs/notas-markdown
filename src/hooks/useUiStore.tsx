@@ -8,7 +8,9 @@ import {
 
 export const useUiStore = () => {
 	const dispatch = useAppDispatch();
-	const { openDrawer, openEditor } = useAppSelector(state => state.ui);
+	const { drawerWidth, openDrawer, openEditor } = useAppSelector(
+		state => state.ui,
+	);
 
 	const onOpenDrawer = () => dispatch(setOpenDrawer());
 
@@ -20,6 +22,7 @@ export const useUiStore = () => {
 
 	return {
 		// props
+		drawerWidth,
 		openDrawer,
 		openEditor,
 

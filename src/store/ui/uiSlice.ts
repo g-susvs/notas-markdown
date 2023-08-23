@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface UiState {
+	drawerWidth: number;
 	openDrawer: boolean;
 	openEditor: boolean;
 	isTitleEdit: boolean;
 }
 
 const initialState: UiState = {
+	drawerWidth: 250,
 	openDrawer: true,
 	openEditor: true,
 	isTitleEdit: false,

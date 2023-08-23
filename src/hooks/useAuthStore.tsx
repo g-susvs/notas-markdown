@@ -5,8 +5,7 @@ import {
 	onLogout,
 	clearErrorMessage,
 } from '../store/auth/';
-import NotesApi from '../api/NotesApi';
-import { ApiResponse } from '../api/types';
+import { NotesApi, ApiResponse, UserData } from '../api';
 
 export const useAuthStore = () => {
 	const dispatch = useAppDispatch();
@@ -18,7 +17,7 @@ export const useAuthStore = () => {
 		const token = localStorage.getItem('x-token');
 		if (!token) return dispatch(onLogout(''));
 		try {
-			const { data } = await NotesApi.get<ApiResponse>('/auth/renew');
+			const { data } = await NotesApi.get<ApiResponse<UserData>>('/auth/renew');
 
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const { token, uid, name, email, image } = data.body!;
@@ -38,7 +37,7 @@ export const useAuthStore = () => {
 		dispatch(checkingAuth());
 
 		try {
-			const { data } = await NotesApi.post<ApiResponse>(
+			const { data } = await NotesApi.post<ApiResponse<UserData>>(
 				'/auth/login',
 				credentials,
 			);
@@ -65,7 +64,10 @@ export const useAuthStore = () => {
 		dispatch(checkingAuth());
 
 		try {
-			const { data } = await NotesApi.post<ApiResponse>('/auth/new', userData);
+			const { data } = await NotesApi.post<ApiResponse<UserData>>(
+				'/auth/new',
+				userData,
+			);
 
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const { uid, email, name, image, token } = data.body!;

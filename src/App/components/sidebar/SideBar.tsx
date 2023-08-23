@@ -16,12 +16,8 @@ import { NotesList } from './NotesList';
 import { useAuthStore, useUiStore } from '../../../hooks/';
 import { pink } from '@mui/material/colors';
 
-interface props {
-	drawerWidth: number;
-}
-
-export const SideBar = ({ drawerWidth }: props) => {
-	const { openDrawer, onCloseDrawer } = useUiStore();
+export const SideBar = () => {
+	const { drawerWidth, openDrawer, onCloseDrawer } = useUiStore();
 	const { user } = useAuthStore();
 
 	return (
