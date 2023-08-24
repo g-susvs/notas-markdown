@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Note } from '../../api';
 
 export interface NoteState extends Pick<Note, 'id' | 'title' | 'content'> {
-	status: 'nothing-selected' | 'loading' | 'active';
+	status: 'nothing-selected' | 'loading' | 'active' | 'error';
 }
 
 export const noteSlice = createSlice({
@@ -14,6 +14,12 @@ export const noteSlice = createSlice({
 		content: '',
 	} as NoteState,
 	reducers: {
+		setError: state => {
+			state.status = 'error';
+			state.id = '';
+			state.title = '';
+			state.content = '';
+		},
 		setNote: (state, { payload }: PayloadAction<Note>) => {
 			state.status = 'active';
 			state.id = payload.id;
@@ -35,4 +41,4 @@ export const noteSlice = createSlice({
 	},
 });
 
-export const { setNote, createNote, loadingNote } = noteSlice.actions;
+export const { setNote, createNote, loadingNote, setError } = noteSlice.actions;

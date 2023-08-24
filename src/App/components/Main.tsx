@@ -1,42 +1,42 @@
 import { Box } from '@mui/material';
-import { Editor, NavBar } from '.';
-import { useLocation } from 'react-router-dom';
+import { NavBar } from '.';
+import { Outlet, useParams } from 'react-router-dom';
 import { useNote, useNoteStore } from '../hooks';
 import { useEffect } from 'react';
 import { Note } from '../../api';
-import { NothingSelected, LodingNoteEditor } from '../views';
+import { NothingSelected, LodingNoteEditor, NotFoundNote } from '../views';
 export const Main = () => {
-	const { status, onSetNote, onLoadingNote } = useNoteStore();
-	const location = useLocation();
+	const { status, onSetNote, onLoadingNote, onSetError } = useNoteStore();
 
-	const searchParams = new URLSearchParams(location.search);
-
-	const { note = '' } = Object.fromEntries(searchParams);
-
-	const { noteQuery } = useNote(note);
+	const { id = '' } = useParams();
+	const { noteQuery } = useNote(id);
 
 	useEffect(() => {
-		if (noteQuery.isLoading) {
+		if (id && noteQuery.isLoading) {
 			onLoadingNote();
 		}
-		if (note !== '' && !noteQuery.isLoading) {
+		if (noteQuery.isError) {
+			return onSetError();
+		}
+		if (id && !noteQuery.isLoading) {
 			onSetNote(noteQuery.data?.body as Note);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
-		note,
+		id,
 		noteQuery.data?.body,
+		noteQuery.isError,
 		noteQuery.isFetching,
 		noteQuery.isLoading,
-		onLoadingNote,
-		onSetNote,
 	]);
 
 	return (
 		<Box sx={{ width: '100%' }}>
 			<NavBar />
-			{status === 'active' && <Editor />}
-			{status === 'loading' && <LodingNoteEditor />}
 			{status === 'nothing-selected' && <NothingSelected />}
+			{status === 'loading' && <LodingNoteEditor />}
+			{status === 'error' && <NotFoundNote />}
+			{status === 'active' && <Outlet />}
 		</Box>
 	);
 };

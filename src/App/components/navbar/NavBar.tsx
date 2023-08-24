@@ -45,6 +45,7 @@ export const NavBar = () => {
 					/>
 				)}
 				{status === 'nothing-selected' && null}
+				{status === 'error' && null}
 				<Box sx={{ flexGrow: 1, display: 'flex' }}></Box>
 				<Options />
 			</Toolbar>

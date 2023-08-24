@@ -24,7 +24,8 @@ export const NoteItem = ({ note }: props) => {
 
 	const handleClickListItem = () => {
 		// setOpenListItem(!openListItem);
-		navigate(`?note=${note.id}`);
+		// navigate(`?note=${note.id}`);
+		navigate(`/home/${note.id}`);
 	};
 	return (
 		<>

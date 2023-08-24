@@ -5,6 +5,7 @@ import { App } from '../landing/App';
 import { AuthRoutes } from '../auth/router/AuthRoutes';
 import { useAuthStore } from '../hooks/useAuthStore';
 import { Checking } from './Checking';
+import { Editor } from '../App/components';
 
 export const AppRouter = () => {
 	const { status, checkAuthToken } = useAuthStore();
@@ -29,7 +30,9 @@ export const AppRouter = () => {
 			) : (
 				<>
 					<Route path="/*" element={<Navigate to="/home" />} />
-					<Route path="/home/*" element={<NoteApp />} />
+					<Route path="/home" element={<NoteApp />}>
+						<Route path="/home/:id" element={<Editor />} />
+					</Route>
 				</>
 			)}
 		</Routes>

@@ -1,6 +1,11 @@
 import { Note } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { createNote, loadingNote, setNote } from '../../store/note/noteSlice';
+import {
+	createNote,
+	loadingNote,
+	setError,
+	setNote,
+} from '../../store/note/noteSlice';
 
 export const useNoteStore = () => {
 	const dispatch = useAppDispatch();
@@ -15,6 +20,9 @@ export const useNoteStore = () => {
 	const onLoadingNote = () => {
 		dispatch(loadingNote());
 	};
+	const onSetError = () => {
+		dispatch(setError());
+	};
 
 	return {
 		// props
@@ -27,5 +35,6 @@ export const useNoteStore = () => {
 		onSetNote,
 		onCreateNote,
 		onLoadingNote,
+		onSetError,
 	};
 };
