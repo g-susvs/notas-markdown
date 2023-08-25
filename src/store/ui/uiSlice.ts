@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export interface UiState {
 	drawerWidth: number;
 	openDrawer: boolean;
+	openCreateNoteModal: boolean;
 	openEditor: boolean;
 	isTitleEdit: boolean;
 }
@@ -10,6 +11,7 @@ export interface UiState {
 const initialState: UiState = {
 	drawerWidth: 250,
 	openDrawer: true,
+	openCreateNoteModal: false,
 	openEditor: true,
 	isTitleEdit: false,
 };
@@ -24,6 +26,9 @@ export const uiSlice = createSlice({
 		setCloseDrawer: state => {
 			state.openDrawer = false;
 		},
+		toggleOpenCreateNoteModal: state => {
+			state.openCreateNoteModal = !state.openCreateNoteModal;
+		},
 		toggleOpenDrawer: state => {
 			state.openDrawer = !state.openDrawer;
 		},
@@ -33,5 +38,10 @@ export const uiSlice = createSlice({
 	},
 });
 
-export const { setOpenDrawer, setCloseDrawer, toggleOpenDrawer, toggleEditor } =
-	uiSlice.actions;
+export const {
+	setOpenDrawer,
+	setCloseDrawer,
+	toggleOpenDrawer,
+	toggleEditor,
+	toggleOpenCreateNoteModal,
+} = uiSlice.actions;

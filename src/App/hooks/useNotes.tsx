@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { ApiResponse, Note, NotesApi } from '../../api';
 
-const getNotes = async (): Promise<ApiResponse<Note[]>> => {
+export const getNotes = async (): Promise<ApiResponse<Note[]>> => {
 	const { data } = await NotesApi.get<ApiResponse<Note[]>>('/notes');
 	return data;
 };

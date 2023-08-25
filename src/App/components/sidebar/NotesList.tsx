@@ -1,16 +1,12 @@
-import { Box, List, ListItemButton, Typography } from '@mui/material';
+import { List } from '@mui/material';
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { NoteItem } from './NoteItem';
 import { useNotes } from '../../hooks/useNotes';
 import { SkeletonListItem } from './SkeletonListItem';
+import { CreateNoteBtn } from './CreateNoteBtn';
 
 export const NotesList = () => {
 	const { notesQuery } = useNotes();
-
-	const onCreateNote = () => {
-		console.log('Crear nota');
-	};
 
 	return (
 		<List
@@ -18,19 +14,7 @@ export const NotesList = () => {
 			component="nav"
 			aria-labelledby="nested-list-subheader"
 		>
-			<ListItemButton
-				onClick={onCreateNote}
-				sx={{
-					':hover': {
-						backgroundColor: 'primary.light',
-					},
-				}}
-			>
-				<Box sx={{ display: 'flex', gap: 1 }}>
-					<AddCircleIcon sx={{ color: 'primary.main' }} />
-					<Typography>Crear Nota</Typography>
-				</Box>
-			</ListItemButton>
+			<CreateNoteBtn />
 			{notesQuery.isLoading ? (
 				<SkeletonListItem />
 			) : (

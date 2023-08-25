@@ -31,7 +31,8 @@ export const Editor = () => {
 			{openEditor ? (
 				<textarea
 					autoFocus
-					className="textarea"
+					spellCheck={false}
+					className="editor-textarea"
 					value={markdownInput}
 					onChange={handleChange}
 				></textarea>

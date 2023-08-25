@@ -1,10 +1,22 @@
 /* .img-landing { */
 /* mix-blend-mode: color; */
 /* } */
-textarea {
+.create-note-textarea {
 	padding: 15px;
 	border: none;
-	outline: none !important;
+	outline: none;
+	width: 100%;
+	height: 300px;
+	overflow-x: hidden;
+	font-size: 15px;
+	resize: none;
+	background: #f7f7f7;
+	margin-top: 20px;
+}
+.editor-textarea {
+	padding: 15px;
+	border: none;
+	outline: none;
 	width: 100%;
 	height: 400px;
 	overflow-x: hidden;

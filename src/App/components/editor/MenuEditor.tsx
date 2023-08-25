@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Button, Link, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
@@ -25,7 +25,7 @@ export const MenuEditor = () => {
 				>
 					{!openEditor ? 'Editor' : 'Vista'}
 				</Button>
-				<Breadcrumbs aria-label="breadcrumb">
+				{/* <Breadcrumbs aria-label="breadcrumb">
 					<Link underline="hover" color="inherit" href="/">
 						MUI
 					</Link>
@@ -37,7 +37,7 @@ export const MenuEditor = () => {
 						Core
 					</Link>
 					<Typography color="text.primary">Breadcrumbs</Typography>
-				</Breadcrumbs>
+				</Breadcrumbs> */}
 			</Box>
 			<Button variant="contained" startIcon={<SaveIcon />}>
 				Guardar

@@ -14,10 +14,8 @@ export interface UserData {
 }
 
 export interface Note {
-	_id: string;
 	id: string;
 	title: string;
 	content: string;
 	user_id: string;
-	__v: number;
 }

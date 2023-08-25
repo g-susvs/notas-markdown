@@ -32,13 +32,7 @@ export const noteSlice = createSlice({
 			state.title = '';
 			state.content = '';
 		},
-		createNote: state => {
-			state.status = 'active';
-			state.id = '';
-			state.title = '';
-			state.content = '';
-		},
 	},
 });
 
-export const { setNote, createNote, loadingNote, setError } = noteSlice.actions;
+export const { setNote, loadingNote, setError } = noteSlice.actions;

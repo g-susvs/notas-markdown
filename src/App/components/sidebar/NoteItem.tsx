@@ -12,6 +12,7 @@ import {
 // import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useNavigate } from 'react-router-dom';
 import { Note } from '../../../api';
+import { useNoteStore } from '../../hooks';
 
 interface props {
 	note: Note;
@@ -19,7 +20,7 @@ interface props {
 
 export const NoteItem = ({ note }: props) => {
 	// const [openListItem, setOpenListItem] = useState(false);
-
+	const { id } = useNoteStore();
 	const navigate = useNavigate();
 
 	const handleClickListItem = () => {
@@ -32,6 +33,7 @@ export const NoteItem = ({ note }: props) => {
 			<ListItemButton
 				onClick={handleClickListItem}
 				sx={{
+					backgroundColor: note.id === id ? 'primary.light' : '',
 					':hover': {
 						backgroundColor: 'primary.light',
 					},
