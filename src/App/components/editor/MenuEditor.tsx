@@ -2,10 +2,12 @@ import { Box, Button } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useUiStore } from '../../../hooks/useUiStore';
+import { ModalDeleteNote } from './ModalDeleteNote';
 
 export const MenuEditor = () => {
-	const { openEditor, onToggleEditor } = useUiStore();
+	const { openEditor, onToggleEditor, onToggleDeleteNoteModal } = useUiStore();
 
 	return (
 		<Box
@@ -39,9 +41,20 @@ export const MenuEditor = () => {
 					<Typography color="text.primary">Breadcrumbs</Typography>
 				</Breadcrumbs> */}
 			</Box>
-			<Button variant="contained" startIcon={<SaveIcon />}>
-				Guardar
-			</Button>
+			<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+				<Button
+					onClick={onToggleDeleteNoteModal}
+					variant="outlined"
+					color="error"
+					startIcon={<DeleteIcon />}
+				>
+					Eliminar
+				</Button>
+				<ModalDeleteNote />
+				<Button variant="contained" startIcon={<SaveIcon />}>
+					Guardar
+				</Button>
+			</Box>
 		</Box>
 	);
 };

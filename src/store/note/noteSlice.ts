@@ -32,7 +32,14 @@ export const noteSlice = createSlice({
 			state.title = '';
 			state.content = '';
 		},
+		nothingSelected: state => {
+			state.status = 'nothing-selected';
+			state.id = '';
+			state.title = '';
+			state.content = '';
+		},
 	},
 });
 
-export const { setNote, loadingNote, setError } = noteSlice.actions;
+export const { setNote, loadingNote, setError, nothingSelected } =
+	noteSlice.actions;

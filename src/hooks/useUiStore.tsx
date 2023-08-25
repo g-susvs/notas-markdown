@@ -5,12 +5,18 @@ import {
 	setOpenDrawer,
 	setCloseDrawer,
 	toggleOpenCreateNoteModal,
+	toogleDeleteNoteModal,
 } from '../store/ui/uiSlice';
 
 export const useUiStore = () => {
 	const dispatch = useAppDispatch();
-	const { drawerWidth, openDrawer, openEditor, openCreateNoteModal } =
-		useAppSelector(state => state.ui);
+	const {
+		drawerWidth,
+		openDrawer,
+		openEditor,
+		openCreateNoteModal,
+		openDeleteNoteModal,
+	} = useAppSelector(state => state.ui);
 
 	const onOpenDrawer = () => dispatch(setOpenDrawer());
 
@@ -21,6 +27,8 @@ export const useUiStore = () => {
 	const onToggleOpenCreateNoteModal = () =>
 		dispatch(toggleOpenCreateNoteModal());
 
+	const onToggleDeleteNoteModal = () => dispatch(toogleDeleteNoteModal());
+
 	const onToggleEditor = () => dispatch(toggleEditor());
 
 	return {
@@ -29,6 +37,7 @@ export const useUiStore = () => {
 		openDrawer,
 		openEditor,
 		openCreateNoteModal,
+		openDeleteNoteModal,
 
 		// methods
 		onOpenDrawer,
@@ -36,5 +45,6 @@ export const useUiStore = () => {
 		onToggleDrawer,
 		onToggleEditor,
 		onToggleOpenCreateNoteModal,
+		onToggleDeleteNoteModal,
 	};
 };

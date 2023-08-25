@@ -1,6 +1,11 @@
 import { Note } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { loadingNote, setError, setNote } from '../../store/note/noteSlice';
+import {
+	loadingNote,
+	setError,
+	setNote,
+	nothingSelected,
+} from '../../store/note/noteSlice';
 
 export const useNoteStore = () => {
 	const dispatch = useAppDispatch();
@@ -16,6 +21,9 @@ export const useNoteStore = () => {
 	const onSetError = () => {
 		dispatch(setError());
 	};
+	const onNothingSelected = () => {
+		dispatch(nothingSelected());
+	};
 
 	return {
 		// props
@@ -28,5 +36,6 @@ export const useNoteStore = () => {
 		onSetNote,
 		onLoadingNote,
 		onSetError,
+		onNothingSelected,
 	};
 };

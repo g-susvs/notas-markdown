@@ -5,6 +5,7 @@ export interface UiState {
 	openDrawer: boolean;
 	openCreateNoteModal: boolean;
 	openEditor: boolean;
+	openDeleteNoteModal: boolean;
 	isTitleEdit: boolean;
 }
 
@@ -12,6 +13,7 @@ const initialState: UiState = {
 	drawerWidth: 250,
 	openDrawer: true,
 	openCreateNoteModal: false,
+	openDeleteNoteModal: false,
 	openEditor: true,
 	isTitleEdit: false,
 };
@@ -29,6 +31,9 @@ export const uiSlice = createSlice({
 		toggleOpenCreateNoteModal: state => {
 			state.openCreateNoteModal = !state.openCreateNoteModal;
 		},
+		toogleDeleteNoteModal: state => {
+			state.openDeleteNoteModal = !state.openDeleteNoteModal;
+		},
 		toggleOpenDrawer: state => {
 			state.openDrawer = !state.openDrawer;
 		},
@@ -44,4 +49,5 @@ export const {
 	toggleOpenDrawer,
 	toggleEditor,
 	toggleOpenCreateNoteModal,
+	toogleDeleteNoteModal,
 } = uiSlice.actions;
