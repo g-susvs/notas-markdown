@@ -18,8 +18,9 @@ export const Main = () => {
 		if (noteQuery.isError) {
 			return onSetError();
 		}
-		if (id && !noteQuery.isLoading) {
+		if (id && !noteQuery.isFetching) {
 			onSetNote(noteQuery.data?.body as Note);
+			document.title = noteQuery.data?.body?.title as string;
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [

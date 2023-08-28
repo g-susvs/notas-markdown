@@ -38,8 +38,20 @@ export const noteSlice = createSlice({
 			state.title = '';
 			state.content = '';
 		},
+		setUpdateNote: (
+			state,
+			{ payload }: PayloadAction<{ title?: string; content?: string }>,
+		) => {
+			state.title = payload.title || state.title;
+			state.content = payload.content || state.content;
+		},
 	},
 });
 
-export const { setNote, loadingNote, setError, nothingSelected } =
-	noteSlice.actions;
+export const {
+	setNote,
+	loadingNote,
+	setError,
+	nothingSelected,
+	setUpdateNote,
+} = noteSlice.actions;

@@ -11,6 +11,7 @@ export const useDeleteNote = () => {
 	const queryClient = useQueryClient();
 
 	const deleteNote = useMutation(deleteNoteFromDb, {
+		onMutate: undefined,
 		onSuccess: () => {
 			queryClient.prefetchQuery(['notes'], getNotes);
 		},

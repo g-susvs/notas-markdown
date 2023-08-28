@@ -1,26 +1,43 @@
 import { Box } from '@mui/material';
-import { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent, useState, useEffect, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 // import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { MenuEditor } from './MenuEditor';
 import { useUiStore } from '../../../hooks/useUiStore';
 import { useNoteStore } from '../../hooks';
+import { useUpdateNote } from '../../hooks/useUpdateNote';
 
 export const Editor = () => {
-	const { content } = useNoteStore();
+	const { id, content, onSetUpdateNote } = useNoteStore();
+
 	const { openEditor } = useUiStore();
 
-	const [markdownInput, setMarkdownInput] = useState<string>('');
+	const [markdownInput, setMarkdownInput] = useState<string>(content);
+
+	const { updateNote } = useUpdateNote(id);
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const prevContent = useMemo(() => content, [updateNote.isLoading]);
+
+	const onBlurSaveContentNote = () => {
+		if (prevContent !== content) {
+			updateNote.mutate({ id, note: { content } });
+		}
+	};
 
 	const handleChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
 		const { value } = target;
 
 		setMarkdownInput(value);
+		onSetUpdateNote({ content: value });
 	};
 
 	useEffect(() => {
+		if (updateNote.isSuccess) {
+			updateNote.reset();
+		}
 		setMarkdownInput(content);
-	}, [content]);
+	}, [content, updateNote]);
 
 	return (
 		<Box
@@ -28,22 +45,24 @@ export const Editor = () => {
 			sx={{ bgcolor: 'background.default', p: 3, marginTop: 6 }}
 		>
 			<MenuEditor />
-			{openEditor ? (
-				<textarea
-					autoFocus
-					spellCheck={false}
-					className="editor-textarea"
-					value={markdownInput}
-					onChange={handleChange}
-				></textarea>
-			) : (
-				<ReactMarkdown
-					children={markdownInput}
-					// components={{
-					//     code: MarkComponent,
-					// }}
-				/>
-			)}
+			<Box onBlur={onBlurSaveContentNote}>
+				{openEditor ? (
+					<textarea
+						spellCheck={false}
+						className="editor-textarea"
+						value={markdownInput}
+						onBlur={onBlurSaveContentNote}
+						onChange={handleChange}
+					></textarea>
+				) : (
+					<ReactMarkdown
+						children={markdownInput}
+						// components={{
+						//     code: MarkComponent,
+						// }}
+					/>
+				)}
+			</Box>
 		</Box>
 	);
 };

@@ -11,6 +11,7 @@ export const useCreateNote = () => {
 	const queryClient = useQueryClient();
 
 	const noteCreated = useMutation(createNote, {
+		onMutate: undefined,
 		onSuccess: () => {
 			queryClient.prefetchQuery(['notes'], getNotes);
 		},

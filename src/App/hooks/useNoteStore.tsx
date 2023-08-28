@@ -5,6 +5,7 @@ import {
 	setError,
 	setNote,
 	nothingSelected,
+	setUpdateNote,
 } from '../../store/note/noteSlice';
 
 export const useNoteStore = () => {
@@ -25,6 +26,10 @@ export const useNoteStore = () => {
 		dispatch(nothingSelected());
 	};
 
+	const onSetUpdateNote = (note: { title?: string; content?: string }) => {
+		dispatch(setUpdateNote(note));
+	};
+
 	return {
 		// props
 		status,
@@ -37,5 +42,6 @@ export const useNoteStore = () => {
 		onLoadingNote,
 		onSetError,
 		onNothingSelected,
+		onSetUpdateNote,
 	};
 };

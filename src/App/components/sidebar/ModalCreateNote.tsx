@@ -44,6 +44,7 @@ export const ModalCreateNote = () => {
 			navigate(`/home/${noteCreated.data?.body?.id}`);
 			onToggleOpenCreateNoteModal();
 			onResetForm();
+			noteCreated.reset();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [noteCreated.isSuccess]);

@@ -1,7 +1,6 @@
 import { Box, Button } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useUiStore } from '../../../hooks/useUiStore';
 import { ModalDeleteNote } from './ModalDeleteNote';
@@ -51,9 +50,6 @@ export const MenuEditor = () => {
 					Eliminar
 				</Button>
 				<ModalDeleteNote />
-				<Button variant="contained" startIcon={<SaveIcon />}>
-					Guardar
-				</Button>
 			</Box>
 		</Box>
 	);
