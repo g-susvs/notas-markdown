@@ -6,6 +6,7 @@ import {
 	clearErrorMessage,
 } from '../store/auth/';
 import { NotesApi, ApiResponse, UserData } from '../api';
+import { nothingSelected } from '../store/note/noteSlice';
 
 export const useAuthStore = () => {
 	const dispatch = useAppDispatch();
@@ -87,6 +88,7 @@ export const useAuthStore = () => {
 		dispatch(checkingAuth());
 		localStorage.clear();
 		dispatch(onLogout(''));
+		dispatch(nothingSelected())
 	};
 
 	return {

@@ -30,6 +30,7 @@ export const useNoteStore = () => {
 		dispatch(setUpdateNote(note));
 	};
 
+
 	return {
 		// props
 		status,
