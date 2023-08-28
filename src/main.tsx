@@ -1,4 +1,3 @@
-import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ReactDOM from 'react-dom/client';
 import { AppTheme } from './theme/AppTheme.tsx';
