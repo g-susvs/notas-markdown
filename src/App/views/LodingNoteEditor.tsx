@@ -1,16 +1,9 @@
 import { Box, Skeleton } from '@mui/material';
+import { LayoutContentView } from './LayoutView';
 
 export const LodingNoteEditor = () => {
 	return (
-		<Box
-			sx={{
-				bgcolor: 'background.default',
-				p: 3,
-				marginTop: 6,
-				display: 'flex',
-				flexDirection: 'column',
-			}}
-		>
+		<LayoutContentView>
 			<Box
 				sx={{
 					display: 'flex',
@@ -32,6 +25,6 @@ export const LodingNoteEditor = () => {
 				<Skeleton animation="wave" variant="rounded" width={100} height={40} />
 			</Box>
 			<Skeleton animation="wave" width="100%" height={400} />
-		</Box>
+		</LayoutContentView>
 	);
 };

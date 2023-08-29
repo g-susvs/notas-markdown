@@ -15,7 +15,6 @@ export const NavBar = () => {
 			sx={{
 				color: 'black',
 				backgroundColor: 'white',
-				// boxShadow: '0px 1px 0px #e0e0e0',
 				boxShadow: 'none',
 				width: { xs: '100%', sm: `calc(100% - ${drawerWidth}px)` },
 			}}

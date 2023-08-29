@@ -1,24 +1,36 @@
-import { Box, Button, Modal, TextField } from '@mui/material';
+import { Box, Button, Modal, TextField, Stack, Alert } from '@mui/material';
 import { useForm, useUiStore } from '../../../hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useCreateNote } from '../../hooks/useCreateNote';
 import { useNavigate } from 'react-router-dom';
+import { useCustomMQ } from '../../hooks';
 
-const style = {
+const styleSm = {
 	position: 'absolute' as const,
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
 	width: '70%',
 	bgcolor: 'background.paper',
-	border: '2px solid #000',
+	borderRadius: '5px',
 	boxShadow: 24,
-	p: '40px 50px',
+	p: '30px 30px',
+};
+const styleXs = {
+	position: 'absolute' as const,
+	width: '100%',
+	height: '100vh',
+	bgcolor: 'background.paper',
+	boxShadow: 24,
+	p: '40px 20px',
 };
 
 export const ModalCreateNote = () => {
+
+	const { mediaQuery } = useCustomMQ()
+
 	const navigate = useNavigate();
-	const { openCreateNoteModal, onToggleOpenCreateNoteModal } = useUiStore();
+	const { openCreateNoteModal, onToggleOpenCreateNoteModal, onCloseDrawer } = useUiStore();
 	const { noteCreated } = useCreateNote();
 
 	const {
@@ -33,8 +45,15 @@ export const ModalCreateNote = () => {
 		content: '',
 	});
 
+	const [showAlert, setShowAlert] = useState(false)
+
 	const onSaveNote = () => {
-		if (title.length > 2) {
+		if (title.trim().length === 0) {
+			setShowAlert(true)
+			setTimeout(() => {
+				setShowAlert(false)
+			}, 3000);
+		} else {
 			noteCreated.mutate(formState);
 		}
 	};
@@ -43,6 +62,7 @@ export const ModalCreateNote = () => {
 		if (openCreateNoteModal && noteCreated.isSuccess) {
 			navigate(`/home/${noteCreated.data?.body?.id}`);
 			onToggleOpenCreateNoteModal();
+			onCloseDrawer() // movil
 			onResetForm();
 			noteCreated.reset();
 		}
@@ -55,25 +75,23 @@ export const ModalCreateNote = () => {
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box sx={style}>
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'space-between',
-						gap: 4,
-					}}
-				>
+			<Box sx={mediaQuery ? styleSm : styleXs}>
+				<Alert
+					severity="error"
+					sx={{ marginBottom: 2, display: !showAlert ? 'none' : '' }}
+				> El titulo no debe estar vacío</Alert>
+				<Stack gap={2} direction={mediaQuery ? 'row' : 'column'}>
 					<TextField
 						label="Título"
 						variant="outlined"
-						size="small"
+						placeholder='Ingresa el título de la nota'
 						fullWidth
+						size="small"
 						value={title}
 						name="title"
 						onChange={onInputChange}
 					/>
-					<Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+					<Stack direction="row" justifyContent="space-between" gap={2}>
 						<Button
 							disabled={noteCreated.isLoading}
 							variant="outlined"
@@ -89,8 +107,10 @@ export const ModalCreateNote = () => {
 						>
 							Guardar
 						</Button>
-					</Box>
-				</Box>
+					</Stack>
+
+				</Stack>
+
 				<textarea
 					className="create-note-textarea"
 					spellCheck={false}

@@ -6,10 +6,11 @@ import { MenuEditor } from './MenuEditor';
 import { useUiStore } from '../../../hooks/useUiStore';
 import { useNoteStore } from '../../hooks';
 import { useUpdateNote } from '../../hooks/useUpdateNote';
+import { LayoutContentView } from '../../views/LayoutView';
 
 export const Editor = () => {
-	const { id, content, onSetUpdateNote } = useNoteStore();
 
+	const { id, content, onSetUpdateNote } = useNoteStore();
 	const { openEditor } = useUiStore();
 
 	const [markdownInput, setMarkdownInput] = useState<string>(content);
@@ -40,10 +41,7 @@ export const Editor = () => {
 	}, [content, updateNote]);
 
 	return (
-		<Box
-			component="main"
-			sx={{ bgcolor: 'background.default', p: 3, marginTop: 6 }}
-		>
+		<LayoutContentView>
 			<MenuEditor />
 			<Box onBlur={onBlurSaveContentNote}>
 				{openEditor ? (
@@ -57,13 +55,13 @@ export const Editor = () => {
 				) : (
 					<ReactMarkdown
 						children={markdownInput}
-						// components={{
-						//     code: MarkComponent,
-						// }}
+					// components={{
+					//     code: MarkComponent,
+					// }}
 					/>
 				)}
 			</Box>
-		</Box>
+		</LayoutContentView>
 	);
 };
 

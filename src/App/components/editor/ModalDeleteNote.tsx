@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useUiStore } from '../../../hooks';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { useNoteStore } from '../../hooks';
 import { useDeleteNote } from '../../hooks/useDeleteNote';
 import { useEffect } from 'react';
@@ -13,7 +13,7 @@ const style = {
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
-	width: 600,
+	minwidth: 300,
 	bgcolor: 'background.paper',
 	borderRadius: '5px',
 	boxShadow: 24,
@@ -31,13 +31,15 @@ export const ModalDeleteNote = () => {
 	};
 
 	useEffect(() => {
-		if (openDeleteNoteModal && deleteNote.isSuccess) {
+		if (deleteNote.isSuccess) {
+			onNothingSelected();
 			navigate('/home');
 			onToggleDeleteNoteModal();
-			onNothingSelected();
+			document.title = 'Home'
+			deleteNote.reset()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [deleteNote]);
+	}, [deleteNote.isSuccess]);
 
 	return (
 		<Modal
@@ -52,24 +54,20 @@ export const ModalDeleteNote = () => {
 					<strong>{` ${title} `}</strong>?
 				</Typography>
 				<br />
-				<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+				<Stack direction="row" justifyContent="space-between" gap={4}>
 					<Button
 						onClick={onToggleDeleteNoteModal}
 						disabled={deleteNote.isLoading}
 						variant="outlined"
 						color="info"
-					>
-						Cancelar
-					</Button>
+					> Cancelar </Button>
 					<Button
 						onClick={onDeleteNote}
 						disabled={deleteNote.isLoading}
 						variant="outlined"
 						color="error"
-					>
-						Si, estoy seguro
-					</Button>
-				</Box>
+					>Si, estoy seguro </Button>
+				</Stack>
 			</Box>
 		</Modal>
 	);

@@ -13,6 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Note } from '../../../api';
 import { useNoteStore } from '../../hooks';
 import { useState, useEffect } from 'react';
+import { useUiStore } from '../../../hooks';
 
 interface props {
 	note: Note;
@@ -21,12 +22,16 @@ interface props {
 export const NoteItem = ({ note }: props) => {
 	// const [openListItem, setOpenListItem] = useState(false);
 	const { id } = useParams();
+
+	const { onCloseDrawer } = useUiStore();
 	const { status, title, onLoadingNote } = useNoteStore();
+
 	const [titlePrint, setTitlePrint] = useState(note.title);
 	const navigate = useNavigate();
 
 	const handleClickListItem = () => {
 		// setOpenListItem(!openListItem);
+		onCloseDrawer()
 		if (id !== note.id) {
 			onLoadingNote();
 			navigate(`/home/${note.id}`);

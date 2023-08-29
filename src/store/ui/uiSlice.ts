@@ -14,7 +14,7 @@ const initialState: UiState = {
 	openDrawer: true,
 	openCreateNoteModal: false,
 	openDeleteNoteModal: false,
-	openEditor: true,
+	openEditor: false,
 	isTitleEdit: false,
 };
 
