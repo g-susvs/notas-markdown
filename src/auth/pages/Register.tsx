@@ -1,5 +1,5 @@
-import { FormEvent } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import {
 	Button,
 	Grid,
@@ -9,48 +9,34 @@ import {
 	Alert,
 } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
-import { useForm } from '../../hooks/useForm';
 import { useAuthStore } from '../../hooks/useAuthStore';
 
+type FormFields = {
+	name: string,
+	email: string,
+	password: string,
+	passwordConfirmed: string,
+}
 export const Register = () => {
 	const { startRegister, errorMessage } = useAuthStore();
 
-	const { formState, name, email, password, passwordConfirmed, onInputChange } =
-		useForm({
-			name: '',
-			email: '',
-			password: '',
-			passwordConfirmed: '',
-		});
+	const { register, handleSubmit, watch, formState: { errors } } = useForm<FormFields>()
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-
-		if (
-			name.length < 2 ||
-			email.length < 2 ||
-			password.length < 6 ||
-			password.length < 6
-		) {
-			return;
-		}
-
-		startRegister(formState);
-	};
+	const onSubmit: SubmitHandler<FormFields> = (data) => startRegister(data)
 
 	return (
 		<>
 			<AuthLayout title={'Registrarse'}>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<Grid container gap={2} marginTop={4}>
 						<Grid item xs={12}>
 							<TextField
 								label="Nombre"
 								fullWidth
 								variant="outlined"
-								name="name"
-								value={name}
-								onChange={onInputChange}
+								{...register("name", { required: "El nombre es oblegatorio" })}
+								error={!!errors.name}
+								helperText={errors.name?.message}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -58,9 +44,15 @@ export const Register = () => {
 								label="Correo"
 								fullWidth
 								variant="outlined"
-								name="email"
-								value={email}
-								onChange={onInputChange}
+								{...register("email", {
+									required: 'El correo es obligatorio',
+									pattern: {
+										value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+										message: 'El correo no es valido'
+									}
+								})}
+								error={!!errors.email}
+								helperText={errors.email?.message}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -69,9 +61,15 @@ export const Register = () => {
 								fullWidth
 								type="password"
 								variant="outlined"
-								name="password"
-								value={password}
-								onChange={onInputChange}
+								{...register("password", {
+									required: "La contraseña es obligatoria",
+									minLength: {
+										value: 6,
+										message: "Debe tener más de 6 caracteres"
+									}
+								})}
+								error={!!errors.password}
+								helperText={errors.password?.message}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -80,9 +78,14 @@ export const Register = () => {
 								fullWidth
 								type="password"
 								variant="outlined"
-								name="passwordConfirmed"
-								value={passwordConfirmed}
-								onChange={onInputChange}
+								{...register("passwordConfirmed", {
+									required: true,
+									validate: (value: string) => value === watch("password") || 'Las contraseñas no coinciden'
+
+								})}
+								error={!!errors.passwordConfirmed}
+								helperText={errors.passwordConfirmed?.message}
+
 							/>
 						</Grid>
 
@@ -93,7 +96,6 @@ export const Register = () => {
 							>
 								{errorMessage}
 							</Alert>
-
 							<Button type="submit" variant="contained" fullWidth>
 								Crear cuenta
 							</Button>

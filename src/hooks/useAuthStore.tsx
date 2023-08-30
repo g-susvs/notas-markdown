@@ -7,6 +7,7 @@ import {
 } from '../store/auth/';
 import { NotesApi, ApiResponse, UserData } from '../api';
 import { nothingSelected } from '../store/note/noteSlice';
+import { AxiosError } from 'axios';
 
 export const useAuthStore = () => {
 	const dispatch = useAppDispatch();
@@ -49,11 +50,14 @@ export const useAuthStore = () => {
 
 			dispatch(onLogin({ uid, email, name, image }));
 		} catch (error) {
-			console.log(error);
-			dispatch(onLogout('Error de credenciales'));
+			if (error instanceof AxiosError) {
+				dispatch(onLogout(error.response?.data.message));
+			} else {
+				dispatch(onLogout('Error de credenciales'));
+			}
 			setTimeout(() => {
 				dispatch(clearErrorMessage());
-			}, 1000);
+			}, 3000);
 		}
 	};
 
@@ -76,8 +80,11 @@ export const useAuthStore = () => {
 
 			dispatch(onLogin({ uid, email, name, image }));
 		} catch (error) {
-			console.log(error);
-			dispatch(onLogout('Error al enviar los datos'));
+			if (error instanceof AxiosError) {
+				dispatch(onLogout(error.response?.data.message));
+			} else {
+				dispatch(onLogout('Error al enviar los datos'));
+			}
 			setTimeout(() => {
 				dispatch(clearErrorMessage());
 			}, 3000);
