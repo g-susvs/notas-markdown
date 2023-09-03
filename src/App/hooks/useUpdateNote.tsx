@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { ApiResponse, Note, NotesApi } from '../../api';
 import { getNote, getNotes } from '.';
+import { NoteUpdatePayload } from '../../store/note';
 
 interface Props {
 	id: Note['id'];
-	note: Partial<Pick<Note, 'title' | 'content'>>;
+	note: NoteUpdatePayload;
 }
 
 const updateNoteFromDb = async (args: Props) => {

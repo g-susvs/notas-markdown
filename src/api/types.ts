@@ -15,6 +15,7 @@ export interface UserData {
 
 export interface Note {
 	id: string;
+	emoji: string;
 	title: string;
 	content: string;
 	user_id: string;

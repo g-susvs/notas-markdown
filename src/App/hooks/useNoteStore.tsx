@@ -6,11 +6,12 @@ import {
 	setNote,
 	nothingSelected,
 	setUpdateNote,
-} from '../../store/note/noteSlice';
+	NoteUpdatePayload,
+} from '../../store/note';
 
 export const useNoteStore = () => {
 	const dispatch = useAppDispatch();
-	const { status, content, id, title } = useAppSelector(state => state.note);
+	const { status, content, id, title, emoji } = useAppSelector(state => state.note);
 
 	const onSetNote = (note: Note) => {
 		dispatch(setNote(note));
@@ -26,7 +27,7 @@ export const useNoteStore = () => {
 		dispatch(nothingSelected());
 	};
 
-	const onSetUpdateNote = (note: { title?: string; content?: string }) => {
+	const onSetUpdateNote = (note: NoteUpdatePayload) => {
 		dispatch(setUpdateNote(note));
 	};
 
@@ -35,6 +36,7 @@ export const useNoteStore = () => {
 		// props
 		status,
 		id,
+		emoji,
 		title,
 		content,
 

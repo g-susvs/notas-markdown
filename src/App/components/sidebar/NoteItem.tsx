@@ -24,9 +24,10 @@ export const NoteItem = ({ note }: props) => {
 	const { id } = useParams();
 
 	const { onCloseDrawer } = useUiStore();
-	const { status, title, onLoadingNote } = useNoteStore();
+	const { status, title, emoji, onLoadingNote } = useNoteStore();
 
 	const [titlePrint, setTitlePrint] = useState(note.title);
+	const [emojiPrint, setEmojiPrint] = useState(note.emoji);
 	const navigate = useNavigate();
 
 	const handleClickListItem = () => {
@@ -41,8 +42,9 @@ export const NoteItem = ({ note }: props) => {
 	useEffect(() => {
 		if (id === note.id && status === 'active') {
 			setTitlePrint(title);
+			setEmojiPrint(emoji)
 		}
-	}, [id, note.id, status, title]);
+	}, [id, note.id, status, title, emoji]);
 
 	return (
 		<>
@@ -57,7 +59,7 @@ export const NoteItem = ({ note }: props) => {
 			>
 				{/* {openListItem ? <ExpandMore /> : <KeyboardArrowRightIcon />} */}
 				<Box sx={{ display: 'flex', gap: 1, marginLeft: 1 }}>
-					<Typography>📄</Typography>
+					<Typography>{emojiPrint}</Typography>
 					<Typography>
 						{titlePrint.length > 18
 							? titlePrint.slice(0, 18) + '...'

@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Box, Button, Menu, TextField } from '@mui/material';
+import { Button, Menu, Stack, TextField } from '@mui/material';
 import { useNoteStore } from '../../hooks';
 import { useForm } from '../../../hooks';
 import { useUpdateNote } from '../../hooks/useUpdateNote';
+import { EmojiPickerButton } from './EmojiPickerButton';
 
 export const TitleNote = () => {
-	const { id, title: titleActive, onSetUpdateNote } = useNoteStore();
+	const { id, emoji, title: titleActive, onSetUpdateNote } = useNoteStore();
 	const { updateNote } = useUpdateNote(id);
 	const { title, onInputChange } = useForm({
 		title: titleActive,
@@ -55,7 +56,7 @@ export const TitleNote = () => {
 		<>
 			<Button
 				disabled={updateNote.isLoading}
-				startIcon={'📄'}
+				startIcon={emoji || '📄'}
 				sx={{
 					color: 'black',
 					textTransform: 'none',
@@ -78,8 +79,10 @@ export const TitleNote = () => {
 				MenuListProps={{
 					'aria-labelledby': 'basic-button',
 				}}
+				sx={{ position: 'absolute' }}
 			>
-				<Box sx={{ paddingLeft: 1, paddingRight: 1 }}>
+				<Stack direction="row" gap={1} paddingLeft={1} paddingRight={1}>
+					<EmojiPickerButton />
 					<TextField
 						variant="outlined"
 						size="small"
@@ -90,7 +93,7 @@ export const TitleNote = () => {
 						onChange={onInputChange}
 						onBlur={onBlurNewTitle}
 					/>
-				</Box>
+				</Stack>
 			</Menu>
 		</>
 	);
