@@ -13,8 +13,7 @@ export const Main = () => {
 					<Typography
 						sx={{ fontSize: '1.2rem', marginTop: '2rem', marginBottom: '2rem' }}
 					>
-						Simplifica la forma en que tomas y organizas tus apuntes. Ahora
-						puedes capturar tus pensamientos y conocimientos de manera eficiente
+						Simplifica la forma en que tomas y organizas tus apuntes. Captura tus pensamientos y conocimientos de manera eficiente
 						utilizando el lenguaje Markdown para dar formato a tus notas.
 					</Typography>
 					<RouterLink to="/auth/login">
