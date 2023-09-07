@@ -1,1 +1,1 @@
-export * from './noteSlice'
+export * from './noteSlice';

@@ -14,7 +14,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { NotesList } from './NotesList';
 import { useAuthStore, useUiStore } from '../../../hooks/';
-import { pink } from '@mui/material/colors';
 
 export const SideBar = () => {
 	const { drawerWidth, openDrawer, onCloseDrawer } = useUiStore();
@@ -47,7 +46,7 @@ export const SideBar = () => {
 										src="https://sm.ign.com/ign_pk/cover/a/avatar-gen/avatar-generations_rpge.jpg"
 									/>
 								) : (
-									<Avatar sx={{ bgcolor: pink[500] }}>
+									<Avatar sx={{ bgcolor: 'primary.main' }}>
 										<AccountCircleIcon />
 									</Avatar>
 								)}

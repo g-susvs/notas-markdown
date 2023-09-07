@@ -8,11 +8,14 @@ import {
 import { NotesApi, ApiResponse, UserData } from '../api';
 import { nothingSelected } from '../store/note/noteSlice';
 import { AxiosError } from 'axios';
+import { useQueryClient } from 'react-query';
 
 export const useAuthStore = () => {
 	const dispatch = useAppDispatch();
 
 	const { status, user, errorMessage } = useAppSelector(state => state.auth);
+
+	const query = useQueryClient();
 
 	const checkAuthToken = async () => {
 		dispatch(checkingAuth());
@@ -92,10 +95,11 @@ export const useAuthStore = () => {
 	};
 
 	const startLogout = async () => {
+		query.removeQueries();
 		dispatch(checkingAuth());
 		localStorage.clear();
 		dispatch(onLogout(''));
-		dispatch(nothingSelected())
+		dispatch(nothingSelected());
 	};
 
 	return {

@@ -12,7 +12,6 @@ export const TitleNote = () => {
 		title: titleActive,
 	});
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const prevTitle = useMemo(() => titleActive, [updateNote.isLoading]);
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -49,7 +48,6 @@ export const TitleNote = () => {
 			updateNote.reset();
 		}
 		onSetUpdateNote({ title });
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [title, updateNote]);
 
 	return (

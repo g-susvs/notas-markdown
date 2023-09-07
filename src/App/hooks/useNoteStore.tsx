@@ -11,7 +11,9 @@ import {
 
 export const useNoteStore = () => {
 	const dispatch = useAppDispatch();
-	const { status, content, id, title, emoji } = useAppSelector(state => state.note);
+	const { status, content, id, title, emoji } = useAppSelector(
+		state => state.note,
+	);
 
 	const onSetNote = (note: Note) => {
 		dispatch(setNote(note));
@@ -30,7 +32,6 @@ export const useNoteStore = () => {
 	const onSetUpdateNote = (note: NoteUpdatePayload) => {
 		dispatch(setUpdateNote(note));
 	};
-
 
 	return {
 		// props

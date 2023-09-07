@@ -1,9 +1,10 @@
-import { Box, Button, Modal, TextField, Stack, Alert } from '@mui/material';
-import { useForm, useUiStore } from '../../../hooks';
-import { useEffect, useState } from 'react';
+import { Box, Button, Modal, TextField, Stack } from '@mui/material';
+import { useUiStore } from '../../../hooks';
+import { useEffect, useRef } from 'react';
 import { useCreateNote } from '../../hooks/useCreateNote';
 import { useNavigate } from 'react-router-dom';
 import { useCustomMQ } from '../../hooks';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const styleSm = {
 	position: 'absolute' as const,
@@ -25,49 +26,47 @@ const styleXs = {
 	p: '40px 20px',
 };
 
+interface FormFields {
+	title: string;
+	content: string;
+}
+
 export const ModalCreateNote = () => {
+	const { mediaQuery } = useCustomMQ();
 
-	const { mediaQuery } = useCustomMQ()
-
+	const inputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
-	const { openCreateNoteModal, onToggleOpenCreateNoteModal, onCloseDrawer } = useUiStore();
+	const { openCreateNoteModal, onToggleOpenCreateNoteModal, onCloseDrawer } =
+		useUiStore();
 	const { noteCreated } = useCreateNote();
 
 	const {
-		formState,
-		title,
-		content,
-		onInputChange,
-		onTextAreaChange,
-		onResetForm,
-	} = useForm({
-		title: '',
-		content: '',
-	});
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<FormFields>();
 
-	const [showAlert, setShowAlert] = useState(false)
-
-	const onSaveNote = () => {
-		if (title.trim().length === 0) {
-			setShowAlert(true)
-			setTimeout(() => {
-				setShowAlert(false)
-			}, 3000);
-		} else {
-			noteCreated.mutate(formState);
-		}
-	};
+	const onSaveNote: SubmitHandler<FormFields> = data =>
+		noteCreated.mutate(data);
 
 	useEffect(() => {
 		if (openCreateNoteModal && noteCreated.isSuccess) {
 			navigate(`/home/${noteCreated.data?.body?.id}`);
 			onToggleOpenCreateNoteModal();
-			onCloseDrawer() // movil
-			onResetForm();
+			onCloseDrawer(); // movil
+			reset();
 			noteCreated.reset();
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [noteCreated.isSuccess]);
+
+	useEffect(() => {
+		if (openCreateNoteModal) {
+			setTimeout(() => {
+				inputRef.current?.focus();
+			}, 100);
+		}
+	}, [openCreateNoteModal]);
 
 	return (
 		<Modal
@@ -76,47 +75,52 @@ export const ModalCreateNote = () => {
 			aria-describedby="modal-modal-description"
 		>
 			<Box sx={mediaQuery ? styleSm : styleXs}>
-				<Alert
-					severity="error"
-					sx={{ marginBottom: 2, display: !showAlert ? 'none' : '' }}
-				> El titulo no debe estar vacío</Alert>
-				<Stack gap={2} direction={mediaQuery ? 'row' : 'column'}>
-					<TextField
-						label="Título"
-						variant="outlined"
-						placeholder='Ingresa el título de la nota'
-						fullWidth
-						size="small"
-						value={title}
-						name="title"
-						onChange={onInputChange}
-					/>
-					<Stack direction="row" justifyContent="space-between" gap={2}>
-						<Button
+				<form onSubmit={handleSubmit(onSaveNote)}>
+					<Stack
+						gap={2}
+						direction={mediaQuery ? 'row' : 'column'}
+						alignItems="center"
+					>
+						<TextField
+							inputRef={inputRef}
 							disabled={noteCreated.isLoading}
+							label="Título"
 							variant="outlined"
-							onClick={onToggleOpenCreateNoteModal}
-						>
-							Cerrar
-						</Button>
-						<Button
-							disabled={noteCreated.isLoading}
-							variant="outlined"
-							color="success"
-							onClick={onSaveNote}
-						>
-							Guardar
-						</Button>
+							placeholder="Ingresa el título de la nota"
+							fullWidth
+							size="small"
+							{...register('title', {
+								required: 'El titulo no debe estar vacío',
+								validate: (value: string) =>
+									value.trim().length > 0 || 'El titulo no debe estar vacío',
+							})}
+							error={!!errors.title}
+							helperText={errors.title?.message}
+						/>
+						<Stack direction="row" justifyContent="space-between" gap={2}>
+							<Button
+								disabled={noteCreated.isLoading}
+								variant="outlined"
+								onClick={onToggleOpenCreateNoteModal}
+								type="button"
+							>
+								Cerrar
+							</Button>
+							<Button
+								disabled={noteCreated.isLoading}
+								variant="outlined"
+								color="success"
+								type="submit"
+							>
+								Guardar
+							</Button>
+						</Stack>
 					</Stack>
-
-				</Stack>
-
+				</form>
 				<textarea
 					className="create-note-textarea"
 					spellCheck={false}
-					value={content}
-					name="content"
-					onChange={onTextAreaChange}
+					{...register('content')}
 				/>
 			</Box>
 		</Modal>

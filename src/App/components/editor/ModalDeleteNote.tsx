@@ -35,10 +35,9 @@ export const ModalDeleteNote = () => {
 			onNothingSelected();
 			navigate('/home');
 			onToggleDeleteNoteModal();
-			document.title = 'Home'
-			deleteNote.reset()
+			document.title = 'Notas Markdown';
+			deleteNote.reset();
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [deleteNote.isSuccess]);
 
 	return (
@@ -60,13 +59,18 @@ export const ModalDeleteNote = () => {
 						disabled={deleteNote.isLoading}
 						variant="outlined"
 						color="info"
-					> Cancelar </Button>
+					>
+						{' '}
+						Cancelar{' '}
+					</Button>
 					<Button
 						onClick={onDeleteNote}
 						disabled={deleteNote.isLoading}
 						variant="outlined"
 						color="error"
-					>Si, estoy seguro </Button>
+					>
+						Si, estoy seguro{' '}
+					</Button>
 				</Stack>
 			</Box>
 		</Modal>

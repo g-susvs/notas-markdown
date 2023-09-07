@@ -12,16 +12,20 @@ import { AuthLayout } from '../layout/AuthLayout';
 import { useAuthStore } from '../../hooks/useAuthStore';
 
 type FormFields = {
-	email: string,
-	password: string,
-}
+	email: string;
+	password: string;
+};
 
 export const Login = () => {
 	const { startLogin, errorMessage } = useAuthStore();
 
-	const { register, handleSubmit, formState: { errors } } = useForm<FormFields>()
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<FormFields>();
 
-	const onSubmit: SubmitHandler<FormFields> = (data) => startLogin(data)
+	const onSubmit: SubmitHandler<FormFields> = data => startLogin(data);
 
 	return (
 		<AuthLayout title={'Iniciar sesión'}>
@@ -33,12 +37,12 @@ export const Login = () => {
 							type="email"
 							variant="outlined"
 							fullWidth
-							{...register("email", {
-								required: "El correo es obligatorio",
+							{...register('email', {
+								required: 'El correo es obligatorio',
 								pattern: {
 									value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-									message: 'El correo no es valido'
-								}
+									message: 'El correo no es valido',
+								},
 							})}
 							error={!!errors.email}
 							helperText={errors.email?.message}
@@ -50,12 +54,12 @@ export const Login = () => {
 							fullWidth
 							variant="outlined"
 							type="password"
-							{...register("password", {
-								required: "La contraseña es obligatoria",
+							{...register('password', {
+								required: 'La contraseña es obligatoria',
 								minLength: {
 									value: 6,
-									message: "Debe tener más de 6 caracteres"
-								}
+									message: 'Debe tener más de 6 caracteres',
+								},
 							})}
 							error={!!errors.password}
 							helperText={errors.password?.message}

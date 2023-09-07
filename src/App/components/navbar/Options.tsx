@@ -21,6 +21,11 @@ export const Options = () => {
 		setAnchorEl(null);
 	};
 
+	const onLogout = () => {
+		startLogout();
+		document.title = 'Notas Markdown';
+	};
+
 	return (
 		<div>
 			<IconButton
@@ -49,7 +54,7 @@ export const Options = () => {
 				}}
 			>
 				<MenuItem
-					onClick={startLogout}
+					onClick={onLogout}
 					sx={{
 						':hover': {
 							backgroundColor: 'error.light',

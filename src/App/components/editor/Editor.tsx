@@ -9,7 +9,6 @@ import { useUpdateNote } from '../../hooks/useUpdateNote';
 import { LayoutContentView } from '../../views/LayoutView';
 
 export const Editor = () => {
-
 	const { id, content, onSetUpdateNote } = useNoteStore();
 	const { openEditor } = useUiStore();
 
@@ -17,7 +16,6 @@ export const Editor = () => {
 
 	const { updateNote } = useUpdateNote(id);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const prevContent = useMemo(() => content, [updateNote.isLoading]);
 
 	const onBlurSaveContentNote = () => {
@@ -43,7 +41,7 @@ export const Editor = () => {
 	return (
 		<LayoutContentView>
 			<MenuEditor />
-			<Box onBlur={onBlurSaveContentNote}>
+			<Box marginTop={8} onBlur={onBlurSaveContentNote}>
 				{openEditor ? (
 					<textarea
 						spellCheck={false}
@@ -53,12 +51,16 @@ export const Editor = () => {
 						onChange={handleChange}
 					></textarea>
 				) : (
-					<ReactMarkdown
-						children={markdownInput}
-					// components={{
-					//     code: MarkComponent,
-					// }}
-					/>
+					<div>
+						{/* <Box> */}
+						<ReactMarkdown
+							children={markdownInput}
+							// components={{
+							//     code: MarkComponent,
+							// }}
+						/>
+						{/* </Box> */}
+					</div>
 				)}
 			</Box>
 		</LayoutContentView>

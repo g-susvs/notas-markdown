@@ -32,7 +32,7 @@ export const NoteItem = ({ note }: props) => {
 
 	const handleClickListItem = () => {
 		// setOpenListItem(!openListItem);
-		onCloseDrawer()
+		onCloseDrawer();
 		if (id !== note.id) {
 			onLoadingNote();
 			navigate(`/home/${note.id}`);
@@ -42,7 +42,7 @@ export const NoteItem = ({ note }: props) => {
 	useEffect(() => {
 		if (id === note.id && status === 'active') {
 			setTitlePrint(title);
-			setEmojiPrint(emoji)
+			setEmojiPrint(emoji);
 		}
 	}, [id, note.id, status, title, emoji]);
 

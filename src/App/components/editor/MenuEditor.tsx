@@ -6,7 +6,8 @@ import { useUiStore } from '../../../hooks/useUiStore';
 import { ModalDeleteNote } from './ModalDeleteNote';
 
 export const MenuEditor = () => {
-	const { openEditor, onToggleEditor, onToggleDeleteNoteModal } = useUiStore();
+	const { openEditor, onToggleEditor, onToggleDeleteNoteModal, drawerWidth } =
+		useUiStore();
 
 	return (
 		<Box
@@ -14,7 +15,15 @@ export const MenuEditor = () => {
 				display: 'flex',
 				alignItems: 'center',
 				justifyContent: 'space-between',
-				paddingBottom: 2,
+				paddingTop: 1,
+				paddingBottom: 1,
+				backgroundColor: 'white',
+				width: {
+					xs: 'calc(100% - 50px)',
+					sm: `calc(100% - ${drawerWidth}px - 50px)`,
+				},
+				position: 'fixed',
+				top: { xs: '55px', sm: '64px' },
 			}}
 		>
 			<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -26,19 +35,6 @@ export const MenuEditor = () => {
 				>
 					{!openEditor ? 'Editor' : 'Vista'}
 				</Button>
-				{/* <Breadcrumbs aria-label="breadcrumb">
-					<Link underline="hover" color="inherit" href="/">
-						MUI
-					</Link>
-					<Link
-						underline="hover"
-						color="inherit"
-						href="/material-ui/getting-started/installation/"
-					>
-						Core
-					</Link>
-					<Typography color="text.primary">Breadcrumbs</Typography>
-				</Breadcrumbs> */}
 			</Box>
 			<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
 				<Button

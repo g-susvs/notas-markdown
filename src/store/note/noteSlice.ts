@@ -5,15 +5,17 @@ export interface NoteState extends Omit<Note, 'user_id'> {
 	status: 'nothing-selected' | 'loading' | 'active' | 'error';
 }
 
-export type NoteUpdatePayload = Partial<Pick<Note, 'title' | 'content' | 'emoji'>>
+export type NoteUpdatePayload = Partial<
+	Pick<Note, 'title' | 'content' | 'emoji'>
+>;
 
 const initialState: NoteState = {
 	status: 'nothing-selected',
 	id: '',
 	emoji: '',
 	title: '',
-	content: ''
-}
+	content: '',
+};
 export const noteSlice = createSlice({
 	name: 'note',
 	initialState,
@@ -31,7 +33,6 @@ export const noteSlice = createSlice({
 			state.title = payload.title;
 			state.content = payload.content;
 			state.emoji = payload.emoji;
-
 		},
 		loadingNote: state => {
 			state.status = 'loading';
@@ -47,10 +48,7 @@ export const noteSlice = createSlice({
 			state.content = '';
 			state.emoji = '';
 		},
-		setUpdateNote: (
-			state,
-			{ payload }: PayloadAction<NoteUpdatePayload>,
-		) => {
+		setUpdateNote: (state, { payload }: PayloadAction<NoteUpdatePayload>) => {
 			state.title = payload.title || state.title;
 			state.content = payload.content || state.content;
 			state.emoji = payload.emoji || state.emoji;

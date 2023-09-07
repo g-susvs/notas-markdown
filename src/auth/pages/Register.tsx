@@ -12,17 +12,22 @@ import { AuthLayout } from '../layout/AuthLayout';
 import { useAuthStore } from '../../hooks/useAuthStore';
 
 type FormFields = {
-	name: string,
-	email: string,
-	password: string,
-	passwordConfirmed: string,
-}
+	name: string;
+	email: string;
+	password: string;
+	passwordConfirmed: string;
+};
 export const Register = () => {
 	const { startRegister, errorMessage } = useAuthStore();
 
-	const { register, handleSubmit, watch, formState: { errors } } = useForm<FormFields>()
+	const {
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+	} = useForm<FormFields>();
 
-	const onSubmit: SubmitHandler<FormFields> = (data) => startRegister(data)
+	const onSubmit: SubmitHandler<FormFields> = data => startRegister(data);
 
 	return (
 		<>
@@ -34,7 +39,7 @@ export const Register = () => {
 								label="Nombre"
 								fullWidth
 								variant="outlined"
-								{...register("name", { required: "El nombre es oblegatorio" })}
+								{...register('name', { required: 'El nombre es oblegatorio' })}
 								error={!!errors.name}
 								helperText={errors.name?.message}
 							/>
@@ -44,12 +49,12 @@ export const Register = () => {
 								label="Correo"
 								fullWidth
 								variant="outlined"
-								{...register("email", {
+								{...register('email', {
 									required: 'El correo es obligatorio',
 									pattern: {
 										value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-										message: 'El correo no es valido'
-									}
+										message: 'El correo no es valido',
+									},
 								})}
 								error={!!errors.email}
 								helperText={errors.email?.message}
@@ -61,12 +66,12 @@ export const Register = () => {
 								fullWidth
 								type="password"
 								variant="outlined"
-								{...register("password", {
-									required: "La contraseña es obligatoria",
+								{...register('password', {
+									required: 'La contraseña es obligatoria',
 									minLength: {
 										value: 6,
-										message: "Debe tener más de 6 caracteres"
-									}
+										message: 'Debe tener más de 6 caracteres',
+									},
 								})}
 								error={!!errors.password}
 								helperText={errors.password?.message}
@@ -78,14 +83,14 @@ export const Register = () => {
 								fullWidth
 								type="password"
 								variant="outlined"
-								{...register("passwordConfirmed", {
+								{...register('passwordConfirmed', {
 									required: true,
-									validate: (value: string) => value === watch("password") || 'Las contraseñas no coinciden'
-
+									validate: (value: string) =>
+										value === watch('password') ||
+										'Las contraseñas no coinciden',
 								})}
 								error={!!errors.passwordConfirmed}
 								helperText={errors.passwordConfirmed?.message}
-
 							/>
 						</Grid>
 

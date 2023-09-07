@@ -22,7 +22,6 @@ export const Main = () => {
 			onSetNote(noteQuery.data?.body as Note);
 			document.title = noteQuery.data?.body?.title as string;
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
 		id,
 		noteQuery.data?.body,
