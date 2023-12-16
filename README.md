@@ -30,7 +30,7 @@ En la raíz del proyecto, crea un archivo llamado `.env` y agrega la siguiente v
 VITE_API_URL=examplehost/api
 ```
 
-Asegúrate de completar la URL del repositorio del servidor en el siguiente enlace: [Repositorio del servidor](https://github.com/g-susvs/chatbot-flask).
+Asegúrate de completar la URL del repositorio del servidor en el siguiente enlace: [Repositorio del servidor](https://github.com/g-susvs/notes-app-backend).
 
 Inicia el proyecto con el siguiente comando:
 
